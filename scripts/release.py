@@ -125,13 +125,14 @@ def api_json(path):
         return json.load(response)
 
 
-def archive_logs(repository, run_id, destination):
+def archive_logs(repository, run_id, destination, run_attempt=None):
     # Never forward the API credential to GitHub's signed storage redirect.
     opener = urllib.request.build_opener(NoRedirect)
+    suffix = f"/attempts/{run_attempt}/logs" if run_attempt is not None else "/logs"
     for attempt in range(5):
         try:
             try:
-                response = opener.open(api_request(f"/repos/{repository}/actions/runs/{run_id}/logs"), timeout=60)
+                response = opener.open(api_request(f"/repos/{repository}/actions/runs/{run_id}{suffix}"), timeout=60)
             except urllib.error.HTTPError as error:
                 if error.code != 302:
                     raise
@@ -281,7 +282,9 @@ def main():
     manifest = assemble(payloads, args.output, tag, commit, args.run_id)
     manifest["collectorCommit"] = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
     verify_attestations(payloads, commit, tag, args.output / "attestation-verification.json")
-    archive_logs(repository, args.run_id, args.output / f"workflow-logs-{args.run_id}.zip")
+    manifest["buildRunAttempt"] = run["run_attempt"]
+    for attempt in range(1, run["run_attempt"] + 1):
+        archive_logs(repository, args.run_id, args.output / f"workflow-logs-{args.run_id}-attempt-{attempt}.zip", attempt)
     body = finalize(args.output, manifest, tag)
     notes = args.output.parent / "release-notes.md"
     notes.write_text(body, encoding="utf-8")

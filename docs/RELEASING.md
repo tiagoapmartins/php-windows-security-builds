@@ -31,7 +31,7 @@ After **Build Windows PHP** succeeds, **Collect release evidence**:
 - resolves the tag to the producing recipe commit;
 - checks the complete matrix, upstream pins, dependency inventories, runtime identity and every recorded file digest;
 - verifies GitHub attestations for the packages, native log archive and build manifests against the tag, commit and workflow identity;
-- downloads the completed build workflow's full log ZIP while those logs still exist;
+- downloads the completed build workflow's full log ZIP for every run attempt while those logs still exist;
 - creates a draft release containing all packages and evidence, with a full SHA-256 download table.
 
 Review the draft's six runtime downloads, bundled extension inventories, validation scope, upstream changes and third-party dependency versions. Download representative packages and verify their hashes and attestations. Test the applications you intend to support.
