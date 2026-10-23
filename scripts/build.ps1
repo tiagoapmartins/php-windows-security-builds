@@ -31,8 +31,12 @@ try {
     $flagText = ($flags | ForEach-Object { '"' + $_ + '"' }) -join ' '
     $batch = @(
         '@echo off', 'setlocal EnableExtensions',
+        ('set "VSINSTALLDIR=' + $VisualStudioPath + '\"'),
+        'set "VCINSTALLDIR="', 'set "VCToolsVersion="', 'set "VCToolsInstallDir="',
+        'set "VSCMD_DEBUG="', 'set "VSCMD_TEST="', 'set "VSCMD_ARG_NO_EXT="',
         ('call "' + $VisualStudioPath + '\VC\Auxiliary\Build\vcvarsall.bat" x64 ' + $config.windowsSdk + ' -vcvars_ver=' + $toolchain.toolset),
         'if errorlevel 1 exit /b 1',
+        ('where cl > "' + $logs + '\compiler.log" 2>&1'), 'if errorlevel 1 exit /b 1',
         ('set "PHP_SDK_VS=' + $source.toolchain + '"'), 'set "PHP_SDK_ARCH=x64"', 'set "PHP_SDK_OS_ARCH=x64"',
         ('call "' + $Work + '\sdk\bin\phpsdk_setvars.bat"'), 'if errorlevel 1 exit /b 1',
         ('where cl > "' + $logs + '\compiler.log" 2>&1'),

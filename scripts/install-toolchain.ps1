@@ -16,7 +16,7 @@ if ($signature.Status -ne 'Valid' -or $signature.SignerCertificate.Subject -notm
 }
 $vsPath = Join-Path $Work ('vs' + $toolchain.year)
 $arguments = @('--quiet','--wait','--norestart','--nocache','--installPath',('"' + $vsPath + '"'),
-    '--add','Microsoft.VisualStudio.Component.VC.Tools.x86.x64')
+    '--add','Microsoft.VisualStudio.Workload.VCTools','--includeRecommended')
 $process = Start-Process -FilePath $installer -ArgumentList $arguments -WindowStyle Hidden -Wait -PassThru
 if ($process.ExitCode -notin @(0,3010)) { throw "VS installer failed: $($process.ExitCode)" }
 if (-not (Test-Path "$vsPath/VC/Auxiliary/Build/vcvarsall.bat")) { throw 'Compiler setup script missing' }
@@ -24,3 +24,10 @@ $programFiles = [Environment]::GetEnvironmentVariable('ProgramFiles(x86)')
 if (-not (Test-Path "$programFiles/Windows Kits/10/Include/$($config.windowsSdk)/um/Windows.h")) {
     throw "Required Windows SDK $($config.windowsSdk) is missing"
 }
+
+$compilers = @(Get-ChildItem "$vsPath/VC/Tools/MSVC" -Directory -ErrorAction SilentlyContinue |
+    Where-Object Name -Like ($toolchain.toolset + '*') |
+    ForEach-Object { Join-Path $_.FullName 'bin/Hostx64/x64/cl.exe' } |
+    Where-Object { Test-Path -LiteralPath $_ })
+if (-not $compilers.Count) { throw "The installer did not supply the required $($toolchain.toolset) x64 compiler" }
+foreach ($compiler in $compilers) { Write-Host "Installed compiler: $compiler ($((Get-Item $compiler).VersionInfo.FileVersion))" }
