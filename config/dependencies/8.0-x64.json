@@ -1,0 +1,229 @@
+{
+  "schemaVersion": 1,
+  "series": "8.0",
+  "architecture": "x64",
+  "packages": [
+    {
+      "name": "apache-2.4.43-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/apache-2.4.43-vs16-x64.zip",
+      "sha256": "7f13b8243f9a8555af1c80b9e669f21d5684cd1041f5ac2a7ce50f7575a88e9c",
+      "bytes": 1683925
+    },
+    {
+      "name": "c-client-2007f-1-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/c-client-2007f-1-vs16-x64.zip",
+      "sha256": "f8b21585b46d729c8abd9e1fd46a69138e2adf7301cf82841b46858a8b04ac9d",
+      "bytes": 662992
+    },
+    {
+      "name": "fbclient-3.0.6-nocrt-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/fbclient-3.0.6-nocrt-x64.zip",
+      "sha256": "641d8beee23283d4ec356a4e57b5ac40343bd9ab35d8296faaee7c4dfacbb36f",
+      "bytes": 54544
+    },
+    {
+      "name": "freetype-2.9.1-1-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/freetype-2.9.1-1-vs16-x64.zip",
+      "sha256": "2bf0aaf989b1fe499aa2e5025f83b5949aa2768ce1160c1974bb78e0300416b2",
+      "bytes": 2994492
+    },
+    {
+      "name": "glib-2.53.3-1-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/glib-2.53.3-1-vs16-x64.zip",
+      "sha256": "d0e47c0bfb6457b11afadd65db2eff7d01d5abcec4a8072eb9f00c15d86e9756",
+      "bytes": 7651881
+    },
+    {
+      "name": "ICU-68.2-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/ICU-68.2-vs16-x64.zip",
+      "sha256": "aa079f1ace8f303647e4d3f1ef0f9381cc33f1de37cc1b3eaff248706b81c66a",
+      "bytes": 23668940
+    },
+    {
+      "name": "libargon2-20190702-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/libargon2-20190702-vs16-x64.zip",
+      "sha256": "62258b350b37c0023fbecba33bc66a799617858714319bd15648c9d698546f0a",
+      "bytes": 190058
+    },
+    {
+      "name": "libbzip2-1.0.8-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/libbzip2-1.0.8-vs16-x64.zip",
+      "sha256": "ee2b47dbc7333205edb2fdec787e9fa06b95a080b634f4b78c53b21379bdcf72",
+      "bytes": 123371
+    },
+    {
+      "name": "libcurl-7.76.1-3-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/libcurl-7.76.1-3-vs16-x64.zip",
+      "sha256": "9981dc18c98c2de15813e1cba72af057408a3062e0445d57d2639a324e046209",
+      "bytes": 3069504
+    },
+    {
+      "name": "libenchant2-2.2.8-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/libenchant2-2.2.8-vs16-x64.zip",
+      "sha256": "d1aa8207131cb4ab750c7dad4083903298d2fb903172f82b8a1fb795de8b15c8",
+      "bytes": 1069965
+    },
+    {
+      "name": "libffi-3.3-4-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/libffi-3.3-4-vs16-x64.zip",
+      "sha256": "5806fa69f9c150b1ecaf8abf3656452f20cdb6f16c36eb65871e1792e6cee26d",
+      "bytes": 87626
+    },
+    {
+      "name": "libiconv-1.17-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/libiconv-1.17-vs16-x64.zip",
+      "sha256": "f5d9522dd5876300d79ddce445c51f2de6f62648d91841df94a2f6a0cc63830d",
+      "bytes": 1828539
+    },
+    {
+      "name": "libintl-0.18.3-8-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/libintl-0.18.3-8-vs16-x64.zip",
+      "sha256": "8180dab050fc481d534385aaefc93f9e5cb25d688a326693bab6739163b4eb60",
+      "bytes": 716986
+    },
+    {
+      "name": "libjpeg-9c-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/libjpeg-9c-vs16-x64.zip",
+      "sha256": "269fea134a012e61a3b7cad13f3f67436be406e9e8a1550bd9e85482f9ddc3ee",
+      "bytes": 194601
+    },
+    {
+      "name": "liblmdb-0.9.22-6-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/liblmdb-0.9.22-6-vs16-x64.zip",
+      "sha256": "c671d0ec857eb0848f67f12374cdaf0b76739672704080fe560ab0af8835153e",
+      "bytes": 401876
+    },
+    {
+      "name": "liblzma-5.2.5-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/liblzma-5.2.5-vs16-x64.zip",
+      "sha256": "5c7e8a344871a1e6c7abe2a35eb533fc4b3c733c80b6189909f49c79f8918699",
+      "bytes": 664067
+    },
+    {
+      "name": "libonig-6.9.7.1-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/libonig-6.9.7.1-vs16-x64.zip",
+      "sha256": "4eb791dc35fee44a7e2932150b8bad30a0439a4d1db30ddcbe9f36b19698a3e1",
+      "bytes": 581151
+    },
+    {
+      "name": "libpng-1.6.34-8-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/libpng-1.6.34-8-vs16-x64.zip",
+      "sha256": "5edfaff761db8b332f3d6dea542372239d01102522a04c468b2724d80de5a22f",
+      "bytes": 2046042
+    },
+    {
+      "name": "libpq-11.4-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/libpq-11.4-vs16-x64.zip",
+      "sha256": "40bd730387db2eb7b00cea4442437a965c77eed9479344a48eb0fc74ae141e49",
+      "bytes": 1768973
+    },
+    {
+      "name": "libqdbm-1.8.78-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/libqdbm-1.8.78-vs16-x64.zip",
+      "sha256": "6895706bf83e80d2ceeecd6375be0b03d27c1c49e75bae8ca491b6c96beca598",
+      "bytes": 1369531
+    },
+    {
+      "name": "libsasl-2.1.27-2-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/libsasl-2.1.27-2-vs16-x64.zip",
+      "sha256": "cb85108f882ffa8460bf6cc1f621505b04487a8936dcbfd0b144b0a379ab0b35",
+      "bytes": 538932
+    },
+    {
+      "name": "libsodium-1.0.18-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/libsodium-1.0.18-vs16-x64.zip",
+      "sha256": "2f01641b65cbd678197a7af6cc802f753b7bdc498500477c4bf689412aad02ec",
+      "bytes": 1079391
+    },
+    {
+      "name": "libssh2-1.9.0-1-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/libssh2-1.9.0-1-vs16-x64.zip",
+      "sha256": "24d9e8a9a1ab4e88e25fd0126311e525fddb8d85b292a34c5e453aa66f82648a",
+      "bytes": 1167362
+    },
+    {
+      "name": "libtidy-5.6.0-2-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/libtidy-5.6.0-2-vs16-x64.zip",
+      "sha256": "ce9163124555fe153c2bca8d8c5dd5e2f31ba05d5c23796434a152b6c3be0414",
+      "bytes": 3163904
+    },
+    {
+      "name": "libwebp-1.1.0-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/libwebp-1.1.0-vs16-x64.zip",
+      "sha256": "d63499e38d64e4bb76d2238b84c4c5db06b3a148167e413ec12d9221b53f9e13",
+      "bytes": 2410512
+    },
+    {
+      "name": "libxml2-2.9.10-2-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/libxml2-2.9.10-2-vs16-x64.zip",
+      "sha256": "5101b4b7a69c15a2b0e371a2f6eb8750c25debf284b603e88948016ebbab6b77",
+      "bytes": 11314670
+    },
+    {
+      "name": "libxpm-3.5.12-8-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/libxpm-3.5.12-8-vs16-x64.zip",
+      "sha256": "6b2a54714e515c15c74d52f4a9d5e5a580e673eae1e86873316337ec46eb383b",
+      "bytes": 960937
+    },
+    {
+      "name": "libxslt-1.1.34-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/libxslt-1.1.34-vs16-x64.zip",
+      "sha256": "486c647715218805a9e29b4bb19a794c9f8062edd9eccaa13976de0e2db677dc",
+      "bytes": 586826
+    },
+    {
+      "name": "libzip-1.7.1-1-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/libzip-1.7.1-1-vs16-x64.zip",
+      "sha256": "e91f3a2060a376256700515dad63ff52984e8910b903fc79171ef0fac937ad80",
+      "bytes": 344607
+    },
+    {
+      "name": "mpir-3.0.0-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/mpir-3.0.0-vs16-x64.zip",
+      "sha256": "6ef0ea515f77fdfe4a8a40b52bffc2ce1db7f45d360221ca066431cc196f33d7",
+      "bytes": 979713
+    },
+    {
+      "name": "net-snmp-5.7.3-1-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/net-snmp-5.7.3-1-vs16-x64.zip",
+      "sha256": "eb07ceec10a5fc4cbfa3a865d929b863cc6d8ca5d2a7bffa414d684e056616f0",
+      "bytes": 1755282
+    },
+    {
+      "name": "nghttp2-1.40.0-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/nghttp2-1.40.0-vs16-x64.zip",
+      "sha256": "2fe632212af331d2082baa2b993fcaf5b3ad4569bb5fb3d4704ea9690b1923aa",
+      "bytes": 619088
+    },
+    {
+      "name": "openldap-2.4.47-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/openldap-2.4.47-vs16-x64.zip",
+      "sha256": "cfae1cdf353c633b6722cd472c8cffb9d6f072d34309923a163ed04f3c5c4146",
+      "bytes": 1412535
+    },
+    {
+      "name": "openssl-1.1.1t-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/openssl-1.1.1t-vs16-x64.zip",
+      "sha256": "1305d7279634b4eaab2f22c4ae0d6da1bb362618229a1b95f1bd688fb3570dbf",
+      "bytes": 6687555
+    },
+    {
+      "name": "sqlite3-3.33.0-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/sqlite3-3.33.0-vs16-x64.zip",
+      "sha256": "a03e5eda9bb4993b0f77e8bf53be8f0bc6323ec9e3c5be50c3a150f7ef7fdf98",
+      "bytes": 5952269
+    },
+    {
+      "name": "wineditline-2.205-1-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/wineditline-2.205-1-vs16-x64.zip",
+      "sha256": "a9a0b4225e765afc2b03e35a153da7087fdde0052bc1064741aa283a9a7b0a43",
+      "bytes": 202219
+    },
+    {
+      "name": "zlib-1.2.12-vs16-x64.zip",
+      "url": "https://downloads.php.net/~windows/php-sdk/deps/vs16/x64/zlib-1.2.12-vs16-x64.zip",
+      "sha256": "4d21150b7a614cb9e5f2e70849f9bfc72290e7384794f703b2576ac6eb4d37b8",
+      "bytes": 188358
+    }
+  ]
+}

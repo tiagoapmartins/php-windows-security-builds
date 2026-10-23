@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "repository": "tiagoapmartins/php-windows-security-builds",
+  "guide": "https://wiki.php.net/internals/windows/stepbystepbuild_sdk_2",
+  "sdk": {
+    "repository": "https://github.com/php/php-sdk-binary-tools.git",
+    "tag": "php-sdk-2.8.4",
+    "commit": "cfe7325dfdc9f20e54e85fb8929e32625d5f624e"
+  },
+  "windowsSdk": "10.0.19041.0",
+  "configure": [
+    "--enable-snapshot-build",
+    "--enable-debug-pack",
+    "--enable-com-dotnet=shared",
+    "--without-analyzer",
+    "--disable-test-ini",
+    "--with-mp=4"
+  ],
+  "toolchains": {
+    "vc15": {
+      "year": "2017",
+      "toolset": "14.16",
+      "compilerPrefix": "19.16.",
+      "url": "https://aka.ms/vs/15/release/vs_buildtools.exe",
+      "sha256": "9c9c36459a206f1117153b22d3fb385c43737ab06d9000091ba9a2e13ce99a1b"
+    },
+    "vs16": {
+      "year": "2019",
+      "toolset": "14.29",
+      "compilerPrefix": "19.29.",
+      "url": "https://aka.ms/vs/16/release/vs_buildtools.exe",
+      "sha256": "0a641c8f47df21f3569fbd87f1f2301ae82db9bc5669bb07b18fb623a207c9ba"
+    }
+  },
+  "sources": [
+    {
+      "series": "7.4",
+      "version": "7.4.33",
+      "repository": "https://github.com/php/php-src.git",
+      "branch": "PHP-7.4-CVE-2026-109618-109619",
+      "commit": "712e60f9edfd03f0960fc4fc3c2c375f42b90aa2",
+      "toolchain": "vc15",
+      "patches": [
+        {
+          "path": "patches/php74-distribution-version.patch",
+          "sha256": "35365e8aa4acbb4d682f607eb1706d2a0290d4d3c5fe122e40957b25ba7345df"
+        }
+      ]
+    },
+    {
+      "series": "8.0",
+      "version": "8.0.30",
+      "repository": "https://github.com/php/php-src.git",
+      "branch": "PHP-8.0-CVE-2026-109618-109619",
+      "commit": "82f8f31b16a035c1b67cc253e79f7cc288f4cc20",
+      "toolchain": "vs16",
+      "patches": []
+    },
+    {
+      "series": "8.1",
+      "version": "8.1.34",
+      "repository": "https://github.com/php/php-src.git",
+      "branch": "PHP-8.1-CVE-2026-109618-109619",
+      "commit": "1d7dec178a094e6e75b229ce22754045f8c6070a",
+      "toolchain": "vs16",
+      "patches": []
+    }
+  ]
+}

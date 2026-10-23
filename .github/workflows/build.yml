@@ -1,0 +1,66 @@
+name: Build Windows PHP
+on:
+  workflow_dispatch:
+  push:
+    tags: ['security-*']
+permissions:
+  contents: read
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  build:
+    name: PHP ${{ matrix.series }} ${{ matrix.variant }} x64
+    runs-on: windows-2022
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix:
+        series: ['7.4', '8.0', '8.1']
+        variant: [nts, ts]
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    env:
+      BUILD_WORK: D:\php-build
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Check recipe
+        shell: pwsh
+        run: python -m unittest discover -s tests -v
+      - name: Build and validate
+        shell: pwsh
+        run: ./scripts/build.ps1 -Series '${{ matrix.series }}' -Variant '${{ matrix.variant }}' -Work $env:BUILD_WORK
+      - name: Attest packages and manifest
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/security-')
+        id: attest
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4
+        with:
+          subject-path: |
+            out/php-${{ matrix.series }}-${{ matrix.variant }}-x64/*.zip
+            out/php-${{ matrix.series }}-${{ matrix.variant }}-x64/build-*.json
+      - name: Preserve provenance bundle
+        if: steps.attest.outcome == 'success'
+        shell: pwsh
+        env:
+          BUNDLE: ${{ steps.attest.outputs.bundle-path }}
+        run: Copy-Item -LiteralPath $env:BUNDLE -Destination 'out/php-${{ matrix.series }}-${{ matrix.variant }}-x64/provenance-php-${{ matrix.series }}-${{ matrix.variant }}-x64.jsonl'
+      - name: Upload release payload
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: php-${{ matrix.series }}-${{ matrix.variant }}-x64
+          path: out/php-${{ matrix.series }}-${{ matrix.variant }}-x64/*
+          if-no-files-found: error
+          retention-days: 90
+          compression-level: 0
+      - name: Upload diagnostics even on failure
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: diagnostics-php-${{ matrix.series }}-${{ matrix.variant }}-x64
+          path: D:/php-build/logs/
+          if-no-files-found: warn
+          retention-days: 90
