@@ -46,6 +46,8 @@ If a completed successful tag build's collector fails before creating a release,
 
 The collector refuses to overwrite either a draft or a published release. If an upload partially created a draft, inspect and delete that unpublished draft manually before retrying collection; retain the original tag. Never delete or modify a published immutable release to repair it; issue a new revision.
 
+Build reruns replace the corresponding release payload artifact and retain diagnostic artifacts under separate attempt-specific names. The collector archives logs for every attempt.
+
 Actions retention does not become permanent just because this repository exists. The release must successfully collect and retain its evidence before the original logs/artifacts expire.
 
 ## External tools and dependency updates

@@ -1,6 +1,8 @@
 """Locked input acquisition; Python standard library only."""
 import argparse
 import hashlib
+import http.client
+import urllib.error
 import json
 from pathlib import Path
 import shutil
@@ -25,11 +27,12 @@ def download(url, destination, expected, size=None):
     if not url.startswith("https://"):
         raise ValueError("HTTPS is required")
     destination = Path(destination)
-    if destination.exists() and sha256(destination) == expected:
+    if (destination.exists() and sha256(destination) == expected
+            and (size is None or destination.stat().st_size == size)):
         return
     destination.parent.mkdir(parents=True, exist_ok=True)
     temporary = destination.with_suffix(destination.suffix + ".partial")
-    for attempt in range(3):
+    for attempt in range(5):
         try:
             with urllib.request.urlopen(url, timeout=120) as response, temporary.open("wb") as output:
                 if not response.url.startswith("https://"):
@@ -39,11 +42,13 @@ def download(url, destination, expected, size=None):
                 raise ValueError("Download digest/size mismatch: " + destination.name)
             temporary.replace(destination)
             return
-        except Exception:
+        except Exception as error:
             temporary.unlink(missing_ok=True)
-            if attempt == 2:
+            transient = (urllib.error.URLError, http.client.IncompleteRead, TimeoutError, ConnectionError)
+            if not isinstance(error, transient) or attempt == 4:
                 raise
-            time.sleep(2 ** attempt)
+            print(f"Retrying {destination.name} after a network error ({attempt + 1}/5)", flush=True)
+            time.sleep(5 * 2 ** attempt)
 
 
 def extract(archive, destination):

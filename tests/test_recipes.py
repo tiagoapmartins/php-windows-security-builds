@@ -62,6 +62,45 @@ class RecipeTests(unittest.TestCase):
                 self.assertRegex(action, r"^[\w/-]+@[0-9a-f]{40}$")
 
 
+
+    def test_download_retries_connection_resets(self):
+        import io
+        import urllib.error
+        from unittest.mock import patch
+        data = b"locked dependency"
+        digest = hashlib.sha256(data).hexdigest()
+        with tempfile.TemporaryDirectory() as temp:
+            destination = Path(temp) / "dependency.zip"
+            with patch.object(inputs.urllib.request, "urlopen", side_effect=[
+                urllib.error.URLError("reset"), urllib.error.URLError("reset"), io.BytesIO(data)
+            ]) as network, patch.object(inputs.time, "sleep") as sleep:
+                # Real responses expose the final URL; our test stream uses the same HTTPS URL.
+                response = io.BytesIO(data)
+                response.url = "https://example.test/dependency.zip"
+                network.side_effect = [urllib.error.URLError("reset"), urllib.error.URLError("reset"), response]
+                inputs.download(response.url, destination, digest, len(data))
+            self.assertEqual(network.call_count, 3)
+            self.assertEqual([call.args[0] for call in sleep.call_args_list], [5, 10])
+            self.assertEqual(destination.read_bytes(), data)
+            self.assertFalse(destination.with_suffix(".zip.partial").exists())
+
+    def test_download_rejects_bad_bytes_without_retry(self):
+        import io
+        from unittest.mock import patch
+        response = io.BytesIO(b"wrong bytes")
+        response.url = "https://example.test/dependency.zip"
+        with tempfile.TemporaryDirectory() as temp:
+            destination = Path(temp) / "dependency.zip"
+            with patch.object(inputs.urllib.request, "urlopen", return_value=response) as network, \
+                    patch.object(inputs.time, "sleep") as sleep:
+                with self.assertRaisesRegex(ValueError, "digest/size mismatch"):
+                    inputs.download(response.url, destination, "0" * 64)
+            self.assertEqual(network.call_count, 1)
+            sleep.assert_not_called()
+            self.assertFalse(destination.exists())
+            self.assertFalse(destination.with_suffix(".zip.partial").exists())
+
+
 class ReleaseTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
