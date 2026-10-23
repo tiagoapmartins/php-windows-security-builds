@@ -1,3 +1,3 @@
 * text=auto eol=lf
-*.patch -text
+*.patch -text -whitespace
 *.zip -text
