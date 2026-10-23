@@ -156,7 +156,7 @@ def verify_attestations(payloads, commit, tag, output):
     records = []
     for manifest_path, item, packages in payloads:
         # The manifest binds validation, dependency inventories, and native logs to the build.
-        for name in sorted(packages | {manifest_path.name}):
+        for name in sorted(packages | {manifest_path.name, "logs-" + item["id"] + ".zip"}):
             command = [
                 "gh", "attestation", "verify", str(manifest_path.parent / name),
                 "--repo", REPOSITORY, "--bundle", str(manifest_path.parent / ("provenance-" + item["id"] + ".jsonl")),
@@ -279,6 +279,7 @@ def main():
         dependency_digests[source["series"]] = hashlib.sha256(content).hexdigest()
     payloads = validate_payload(args.payload, config, commit, args.run_id, tag, dependency_digests)
     manifest = assemble(payloads, args.output, tag, commit, args.run_id)
+    manifest["collectorCommit"] = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
     verify_attestations(payloads, commit, tag, args.output / "attestation-verification.json")
     archive_logs(repository, args.run_id, args.output / f"workflow-logs-{args.run_id}.zip")
     body = finalize(args.output, manifest, tag)

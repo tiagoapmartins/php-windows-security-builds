@@ -170,5 +170,44 @@ class ReleaseTests(unittest.TestCase):
                 release.trusted_run(changed, release.REPOSITORY)
 
 
+
+    def test_attestation_policy_binds_tag_commit_and_workflow(self):
+        from types import SimpleNamespace
+        from unittest.mock import patch
+        payloads = self.validate()
+        output = self.root / "verification.json"
+        with patch.object(release.subprocess, "run", return_value=SimpleNamespace(stdout="[]")) as command:
+            release.verify_attestations(payloads, self.commit, self.tag, output)
+        self.assertEqual(command.call_count, 36)
+        for call in command.call_args_list:
+            arguments = call.args[0]
+            self.assertEqual(arguments[arguments.index("--source-digest") + 1], self.commit)
+            self.assertEqual(arguments[arguments.index("--source-ref") + 1], "refs/tags/" + self.tag)
+            self.assertEqual(arguments[arguments.index("--signer-workflow") + 1],
+                             release.REPOSITORY + "/.github/workflows/build.yml")
+            self.assertIn("--deny-self-hosted-runners", arguments)
+
+    def test_log_storage_redirect_has_no_api_credential(self):
+        import io
+        import urllib.error
+        from unittest.mock import Mock, patch
+        data = io.BytesIO()
+        with zipfile.ZipFile(data, "w") as archive:
+            archive.writestr("job/build.log", "completed build")
+        redirect = urllib.error.HTTPError("https://api.github.com/logs", 302, "Found",
+                                         {"Location": "https://storage.example.test/logs.zip"}, None)
+        opener = Mock()
+        opener.open.side_effect = redirect
+        with patch.dict(release.os.environ, {"GH_TOKEN": "TEST-ONLY"}), \
+                patch.object(release.urllib.request, "build_opener", return_value=opener), \
+                patch.object(release.urllib.request, "urlopen", return_value=io.BytesIO(data.getvalue())) as download:
+            release.archive_logs(release.REPOSITORY, 123, self.root / "logs.zip")
+        api_call = opener.open.call_args.args[0]
+        self.assertEqual(api_call.get_header("Authorization"), "Bearer TEST-ONLY")
+        self.assertEqual(download.call_args.args[0], "https://storage.example.test/logs.zip")
+        self.assertNotIn("headers", download.call_args.kwargs)
+        self.assertEqual(zipfile.ZipFile(self.root / "logs.zip").read("job/build.log"), b"completed build")
+
+
 if __name__ == "__main__":
     unittest.main()
